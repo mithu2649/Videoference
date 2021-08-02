@@ -6,6 +6,61 @@ body {
     font-family: 'Merriweather', serif;
 }
 
+#topbar{
+    background-color:  black;
+    color: white;
+    padding:20px;
+   
+}
+
+#topbar h2{
+    font-size: 2.9rem;
+}
+#logo{
+    color: gray;
+    font-size: 16px;
+}
+
+#main{
+    padding: 20px;
+}
+#main form h2{
+    margin:0;
+}
+.tip-message{
+    display: block;
+    margin-bottom: 30px;
+    color: gray;
+    font-size: 12px;
+}
+
+#main form{
+    margin-top: 30px;
+}
+
+#main form input[type="text"]{
+    width: 170px;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+#main form .index-btn{
+
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 8px;
+    font-size: 15px;
+    width: 120px;
+}
+
+
 #video-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, 300px);

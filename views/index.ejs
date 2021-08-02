@@ -4,14 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Videoference</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+   <div id="topbar">
+    <div id="logo"><i class="fa fa-video-camera"></i> &nbsp;Videoference</div>
+    <h2>Welcome to Videoference!</h2>
+   </div>
+    
+   <div id="main">
     <form>
         <h2>Create a Room</h2>
+        <span class="tip-message">Create your own room and invite someone to join!</span>
         <input type="text" id="room" name="room" placeholder="Enter room name here" required>
-        <button id="createRoomBtn" type="submit">Create Room</button>
+        <button id="createRoomBtn" class="index-btn" type="submit">Create Room</button>
     </form>
+    <br><br>
+    <form>
+        <h2>Join a Room</h2>
+        <span class="tip-message">If you have a invite code, enter it to join!</span>
+
+        <input type="text" id="roomId" placeholder="Enter room code here" required>
+        <button id="joinRoomBtn"  class="index-btn">Join Room</button>
+    </form>
+   </div>
+    
     <script defer>
         document.querySelector('#createRoomBtn')
                 .addEventListener('click', (e) => {
@@ -19,6 +38,16 @@
                     e.stopPropagation();
 
                     let room = document.querySelector('#room').value;
+
+                    window.location = window.location.href + room;
+                });
+
+        document.querySelector('#joinRoomBtn')
+                .addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    let room = document.querySelector('#roomId').value;
 
                     window.location = window.location.href + room;
                 });
