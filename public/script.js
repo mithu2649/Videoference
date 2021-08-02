@@ -75,6 +75,7 @@ function addVideoStream(video, stream) {
 
 function removeLoadingAnimations(){
     document.querySelector('#loading-components').remove();
+    document.querySelector('#video-grid').style.opacity = 1;
 }
 function showEndCallButton(){
     document.querySelector('#end-call').style.display = "block";
