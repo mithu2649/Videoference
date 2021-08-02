@@ -16,10 +16,13 @@ navigator.mediaDevices.getUserMedia({
 }).then(stream => {
     addVideoStream(myVideo, stream);
 
+    
+
     myPeer.on('call', call => {
         call.answer(stream);
         const video = document.createElement('video');
-
+        removeLoadingAnimations();
+        showEndCallButton()
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream);
         });
@@ -27,7 +30,8 @@ navigator.mediaDevices.getUserMedia({
 
 
     socket.on('user-connected', userId => {
-        console.log('New User Connected: ' + userId)
+        removeLoadingAnimations();
+        showEndCallButton();
         const fc = () => connectToNewUser(userId, stream)
         timerid = setTimeout(fc, 1000)
     });
@@ -66,4 +70,12 @@ function addVideoStream(video, stream) {
     });
 
     videoGrid.append(video);
+}
+
+
+function removeLoadingAnimations(){
+    document.querySelector('#loading-components').remove();
+}
+function showEndCallButton(){
+    document.querySelector('#end-call').style.display = "block";
 }
