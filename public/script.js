@@ -7,6 +7,7 @@ const myPeer = new Peer(undefined, {
 });
 
 const myVideo = document.createElement('video');
+myVideo.setAttribute('id', 'myVideo');
 myVideo.muted = true;
 const peers = {};
 navigator.mediaDevices.getUserMedia({
