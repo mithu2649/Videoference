@@ -133,7 +133,7 @@
         };
 
         checkElement('#myVideo').then((selector) => {
-
+            //dragging myVideo
             var offset = [0, 0];
             var divOverlay = selector;
             var isDown = false;
@@ -155,6 +155,28 @@
                     divOverlay.style.top = (e.clientY + offset[1]) + 'px';
                 }
             }, true);
+
+            //for android/mobile support
+            divOverlay.addEventListener('touchstart', function (e) {
+                e.preventDefault();
+                isDown = true;
+                offset = [
+                    divOverlay.offsetLeft - e.touches[0].clientX,
+                    divOverlay.offsetTop  - e.touches[0].clientY
+                ];
+            }, {passive: false});
+            document.addEventListener('touchend', function () {
+                isDown = false;
+            });
+
+            document.addEventListener('touchmove', function (e) {
+                e.preventDefault();
+                if (isDown) {
+                    divOverlay.style.left = (e.touches[0].clientX + offset[0]) + 'px';
+                    divOverlay.style.top  = (e.touches[0].clientY + offset[1]) + 'px';
+                }
+            }, {passive: false});
+
         });
 
 
