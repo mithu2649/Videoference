@@ -6,7 +6,7 @@ Video call app created using express, node, socket.io, and peerjs
 
 ##### Clone the repository
 
-<pre>git clone git@github.com:mithu2649/videoference.git</pre>
+<pre>git clone https://github.com/mithu2649/videoference.git</pre>
 
 ##### Install the dependencies
 
@@ -14,8 +14,11 @@ Video call app created using express, node, socket.io, and peerjs
 
 <pre>npm install</pre>
 
+#### Install and run peer server locally on your machine
+<pre>npm install -g peer</pre>
+<pre>peerjs --port 3001</pre>
 
-
+#### Open up a new terminal and start the server
 <pre>npm run dev</pre>
 
 #### All Done!
