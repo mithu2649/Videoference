@@ -31,6 +31,7 @@ navigator.mediaDevices.getUserMedia({
 
 
     socket.on('user-connected', userId => {
+        hideUserDisconnectedError();
         removeLoadingAnimations();
         showEndCallButton();
         const fc = () => connectToNewUser(userId, stream)
@@ -72,15 +73,27 @@ function addVideoStream(video, stream) {
     });
 
     videoGrid.append(video);
+
+    userVideos = document.querySelectorAll("[id='userVideo']");
+    if(userVideos.length > 1) {
+        userVideos[0].remove();
+    }
+
 }
 
 
 function showUserDisconnectedError() {
     document.querySelector('#user-disconnected-msg').style.display = 'block';
 }
+function hideUserDisconnectedError() {
+    document.querySelector('#user-disconnected-msg').style.display = 'none';
+}
 
 function removeLoadingAnimations() {
-    document.querySelector('#loading-components').remove();
+
+    checkElement('#loading-components').then((selector) => {
+        selector.remove();
+    });
     document.querySelector('#video-grid').style.opacity = 1;
 }
 function showEndCallButton() {
