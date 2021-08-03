@@ -2,9 +2,16 @@ const socket = io('/');
 const videoGrid = document.querySelector('#video-grid');
 
 const myPeer = new Peer(undefined, {
-    host: '/',
-    port: '3001'
+    host: 'peerjs-serve.herokuapp.com',
+    port: '443',
+    secure: true
 });
+
+//for github
+// const myPeer = new Peer(undefined, {
+//     host: '/',
+//     port: '3001'
+// });
 
 const myVideo = document.createElement('video');
 myVideo.setAttribute('id', 'myVideo');
