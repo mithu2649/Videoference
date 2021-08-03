@@ -10,6 +10,8 @@ body {
     background-color: black;
     color: white;
     padding: 20px;
+    height: 35vh;
+    box-shadow: 0px 0px 10px rgb(19, 19, 19);
 }
 
 #topbar h2 {
@@ -18,6 +20,61 @@ body {
 #logo {
     color: gray;
     font-size: 16px;
+}
+
+@keyframes zoominout {
+    0% {
+        transform: scale(1);
+    }
+    70% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+    
+}
+
+@keyframes translateXaxis {
+    0% {
+        width: 0px;
+    }
+    2% {
+        width: 200px;
+    }
+    100% {
+        width: 0px;
+    }
+    
+}
+
+#node-connected-graphics {
+    opacity: .3;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+#node-connected-graphics .ncg {
+    display: inline-block;
+}
+#node-connected-graphics .line {
+    animation: translateXaxis 90s ease infinite;
+    height: 1px;
+    width: 200px;
+    background-color: #fff;
+}
+
+#node-connected-graphics .node {
+    animation: zoominout 3s ease infinite;
+    height: 25px;
+    width: 25px;
+    line-height: 24px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #fff;
+    color: #fff;
+    background-color: black;
+    border-radius: 50%;
 }
 
 #main {
@@ -142,6 +199,22 @@ video {
     animation: loading 5s ease-in-out infinite;
 }
 
+#waitingmsg{
+    color: rgb(61, 61, 61);
+    position: absolute;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    text-align: center;
+    top: 10vh;
+    font-size: 25px;
+    font-family: sans-serif;
+    font-weight: lighter;
+    
+
+
+}
+
 #share-link {
     background-color: #e6e6ff;
     display: flex;
@@ -256,7 +329,7 @@ video {
     line-height: 20px;
     text-align: center;
     top: 0px;
-    padding-top:5px;
+    padding-top: 5px;
     padding-bottom: 5px;
     background-color: red;
     color: White;

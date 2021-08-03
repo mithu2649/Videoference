@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="black"/>
     <title>Videoference</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -12,8 +13,14 @@
 
 <body>
     <div id="topbar">
-        <div id="logo"><i class="fa fa-video-camera"></i> &nbsp;Videoference</div>
+        <div id="logo"><i class="fa fa-video-camera"></i> &nbsp;Videoference</div><br><br>
+        <div id="node-connected-graphics">
+            <div class="ncg node"><i class="fa fa-user-o"></i></div>
+            <div class="ncg line"></div>
+            <div class="ncg node"><i class="fa fa-user-o"></i></div>
+        </div>
         <h2>Welcome to Videoference!</h2>
+      
     </div>
 
     <div id="main">
@@ -23,10 +30,10 @@
             <input type="text" id="room" name="room" placeholder="Enter room name here" maxlength="20" required>
             <button id="createRoomBtn" class="index-btn" type="submit">Create Room</button>
         </form>
-        <br><br>
+        
         <form>
             <h2>Join a Room</h2>
-            <span class="tip-message">If you have a invite code, enter it to join!</span>
+            <span class="tip-message">If you have an invite code, enter it here to join!</span>
 
             <input type="text" id="roomId" placeholder="Enter room code here" maxlength="20" required>
             <button id="joinRoomBtn" class="index-btn">Join Room</button>

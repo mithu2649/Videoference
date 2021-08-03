@@ -1,7 +1,18 @@
 let endCallBtn = document.querySelector('#end-call');
 
-document.querySelector('#myRoomId')
-    .innerHTML = window.location.pathname.slice(1);
+
+const checkElement = async selector => {
+    while (document.querySelector(selector) === null) {
+        await new Promise(resolve => requestAnimationFrame(resolve))
+    }
+    return document.querySelector(selector);
+};
+
+
+checkElement('#myRoomId').then((selector) => {
+    selector.innerHTML = window.location.pathname.slice(1);
+});
+
 
 const shareData = {
     title: 'Videoference',
@@ -72,15 +83,6 @@ endCallBtn.addEventListener('click', () => {
     window.location.href = "/"
 });
 
-
-
-
-const checkElement = async selector => {
-    while (document.querySelector(selector) === null) {
-        await new Promise(resolve => requestAnimationFrame(resolve))
-    }
-    return document.querySelector(selector);
-};
 
 checkElement('#myVideo').then((selector) => {
     //dragging myVideo
