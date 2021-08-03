@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,49 +9,67 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-   <div id="topbar">
-    <div id="logo"><i class="fa fa-video-camera"></i> &nbsp;Videoference</div>
-    <h2>Welcome to Videoference!</h2>
-   </div>
-    
-   <div id="main">
-    <form>
-        <h2>Create a Room</h2>
-        <span class="tip-message">Create your own room and invite someone to join!</span>
-        <input type="text" id="room" name="room" placeholder="Enter room name here" required>
-        <button id="createRoomBtn" class="index-btn" type="submit">Create Room</button>
-    </form>
-    <br><br>
-    <form>
-        <h2>Join a Room</h2>
-        <span class="tip-message">If you have a invite code, enter it to join!</span>
+    <div id="topbar">
+        <div id="logo"><i class="fa fa-video-camera"></i> &nbsp;Videoference</div>
+        <h2>Welcome to Videoference!</h2>
+    </div>
 
-        <input type="text" id="roomId" placeholder="Enter room code here" required>
-        <button id="joinRoomBtn"  class="index-btn">Join Room</button>
-    </form>
-   </div>
-    
+    <div id="main">
+        <form>
+            <h2>Create a Room</h2>
+            <span class="tip-message">Create your own room and invite someone to join!</span>
+            <input type="text" id="room" name="room" placeholder="Enter room name here" maxlength="20" required>
+            <button id="createRoomBtn" class="index-btn" type="submit">Create Room</button>
+        </form>
+        <br><br>
+        <form>
+            <h2>Join a Room</h2>
+            <span class="tip-message">If you have a invite code, enter it to join!</span>
+
+            <input type="text" id="roomId" placeholder="Enter room code here" maxlength="20" required>
+            <button id="joinRoomBtn" class="index-btn">Join Room</button>
+        </form>
+    </div>
+
     <script defer>
+        let inputfields = document.querySelectorAll('input');
+        inputfields.forEach((inputField) => {
+            inputField.addEventListener('keyup', () => {
+
+                inputField.value = convertToSlug(inputField.value);
+
+            });
+        });
+
         document.querySelector('#createRoomBtn')
-                .addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
+            .addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
 
-                    let room = document.querySelector('#room').value;
-
-                    window.location = window.location.href + room;
-                });
+                let room = document.querySelector('#room').value;
+                window.location = window.location.href + room;
+            });
 
         document.querySelector('#joinRoomBtn')
-                .addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
+            .addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
 
-                    let room = document.querySelector('#roomId').value;
+                let room = document.querySelector('#roomId').value;
+                window.location = window.location.href + room + '?action=join';
+            });
 
-                    window.location = window.location.href + room;
-                });
+
+        function convertToSlug(text) {
+            return text
+                .toLowerCase()
+                .replace(/ +/g, '-')
+                .replace(/[^\-^\w ]+/g, '');
+        }
+
     </script>
 </body>
+
 </html>

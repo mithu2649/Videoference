@@ -18,60 +18,148 @@
 </head>
 
 <body>
-  
-
-    <div id="video-grid" style="opacity:0"></div>
-    <div id="end-call" style="display: none"><i class="fa fa-phone"></i></div>
-
-    <div id="loading-components">
-        <div id="loading-animation">
-            <span class="loader loader0"><i class="fa fa-circle-thin"></i></span>
-            <span class="loader loader2"><i class="fa fa-dot-circle-o"></i></span>
-            <span class="loader loader0"><i class="fa fa-circle-thin"></i></span>
-        </div>  
-        <div class="room-id-container">
-            <span id="myRoomId"></span>
-            <p>Ask someone to join using your code</p>
+    <div id="overlay"></div>
+    <div id="call-ui">
+        <div id="video-grid" style="opacity:0">
         </div>
+        <div id="end-call" style="display: none"><i class="fa fa-phone"></i></div>
+        <div id="user-disconnected-msg"><i class="fa fa-user"> &nbsp; </i>User Disconnected!</div>
 
-        <div id="share-link">
-            <div id="roominfo"><br>
-                <div class="tiny-bold">It's lonely here!</div>
-                <div class="tiny">Invite Someone to talk to...</div><br>
+        <div id="loading-components">
+            <div id="loading-animation">
+                <span class="loader loader0"><i class="fa fa-circle-thin"></i></span>
+                <span class="loader loader2"><i class="fa fa-dot-circle-o"></i></span>
+                <span class="loader loader0"><i class="fa fa-circle-thin"></i></span>
             </div>
-            <button id="invite-btn">Invite</button>
-        </div>
+            <div id="invite-info">
+                <div class="room-id-container">
+                    <span id="myRoomId"></span>
+                    <p>Ask someone to join using your code</p>
+                </div>
 
+                <div id="share-link">
+                    <div id="roominfo"><br>
+                        <div class="tiny-bold">It's lonely here!</div>
+                        <div class="tiny">Invite Someone to talk to...</div><br>
+                    </div>
+                    <button id="invite-btn">Invite</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script defer>
-        document.querySelector('#myRoomId').innerHTML = window.location.pathname.slice(1);
+        let endCallBtn = document.querySelector('#end-call');
 
-        document.querySelector('#end-call').addEventListener('click', () => {
-            window.location.href = "/"
-        });
-    </script>
+        document.querySelector('#myRoomId')
+            .innerHTML = window.location.pathname.slice(1);
 
-    <script defer>
         const shareData = {
             title: 'Videoference',
-            text: 'Hey! join me on Videoference!',
-            url: window.location.href,
+            text: 'Hey, join me on Videoference!',
+            url: window.location.href + '?action=join',
         }
-
         const btn = document.querySelector('#invite-btn');
         const resultPara = document.querySelector('.tiny-bold');
 
-        // Must be triggered some kind of "user activation"
+        // Must be triggered by some kind of "user activation"
         btn.addEventListener('click', async () => {
             try {
                 await navigator.share(shareData)
                 resultPara.textContent = 'Invited!';
                 document.querySelector('.tiny').remove();
             } catch (err) {
-                resultPara.textContent = 'Error: ' + err
+                resultPara.textContent = 'Function not supported on this device!';
+                resultPara.style.fontSize = '10px'
+                document.querySelector('.tiny').textContent = 'Share your invite code instead!'
             }
         });
+
+
+        let elem = document.documentElement;
+        let isFullScreenOn = false;
+
+        function openFullscreen() {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+
+            isFullScreenOn = true;
+        }
+
+        function exitFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+
+            isFullScreenOn = false;
+        }
+
+        document.querySelector('#overlay')
+            .addEventListener('click', () => {
+
+                isFullScreenOn ? exitFullscreen() : openFullscreen();
+
+
+                if (isFullScreenOn) {
+                    endCallBtn.style.opacity = 0;
+                } else {
+                    endCallBtn.style.opacity = 9;
+                }
+            });
+
+
+
+        endCallBtn.addEventListener('click', () => {
+            window.location.href = "/"
+        });
+
+
+
+
+        const checkElement = async selector => {
+            while (document.querySelector(selector) === null) {
+                await new Promise(resolve => requestAnimationFrame(resolve))
+            }
+            return document.querySelector(selector);
+        };
+
+        checkElement('#myVideo').then((selector) => {
+
+            var offset = [0, 0];
+            var divOverlay = selector;
+            var isDown = false;
+            divOverlay.addEventListener('mousedown', function (e) {
+                isDown = true;
+                offset = [
+                    divOverlay.offsetLeft - e.clientX,
+                    divOverlay.offsetTop - e.clientY
+                ];
+            }, true);
+            document.addEventListener('mouseup', function () {
+                isDown = false;
+            }, true);
+
+            document.addEventListener('mousemove', function (e) {
+                event.preventDefault();
+                if (isDown) {
+                    divOverlay.style.left = (e.clientX + offset[0]) + 'px';
+                    divOverlay.style.top = (e.clientY + offset[1]) + 'px';
+                }
+            }, true);
+        });
+
+
+
+
     </script>
 </body>
 

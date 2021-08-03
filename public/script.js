@@ -16,11 +16,12 @@ navigator.mediaDevices.getUserMedia({
 }).then(stream => {
     addVideoStream(myVideo, stream);
 
-    
+
 
     myPeer.on('call', call => {
         call.answer(stream);
         const video = document.createElement('video');
+        video.setAttribute('id', 'userVideo');
         removeLoadingAnimations();
         showEndCallButton()
         call.on('stream', userVideoStream => {
@@ -35,17 +36,17 @@ navigator.mediaDevices.getUserMedia({
         const fc = () => connectToNewUser(userId, stream)
         timerid = setTimeout(fc, 1000)
     });
-    
+
     socket.on('user-disconnected', userId => {
-    console.log(userId);
-    if(peers[userId]){ 
-        peers[userId].close() 
-    };
-})
-  
+        console.log(userId);
+        showUserDisconnectedError();
+
+        if (peers[userId]) {
+            peers[userId].close()
+        };
+    })
+
 });
-
-
 
 myPeer.on('open', id => {
     socket.emit('join-room', ROOM_ID, id);
@@ -54,6 +55,7 @@ myPeer.on('open', id => {
 function connectToNewUser(userId, stream) {
     const call = myPeer.call(userId, stream);
     const video = document.createElement('video');
+    video.setAttribute('id', 'userVideo');
     call.on('stream', userVideoStream => {
         addVideoStream(video, userVideoStream);
     });
@@ -73,10 +75,15 @@ function addVideoStream(video, stream) {
 }
 
 
-function removeLoadingAnimations(){
+function showUserDisconnectedError() {
+    document.querySelector('#user-disconnected-msg').style.display = 'block';
+}
+
+function removeLoadingAnimations() {
     document.querySelector('#loading-components').remove();
     document.querySelector('#video-grid').style.opacity = 1;
 }
-function showEndCallButton(){
+function showEndCallButton() {
     document.querySelector('#end-call').style.display = "block";
 }
+
