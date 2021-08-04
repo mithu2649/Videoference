@@ -18,7 +18,7 @@ Video call app created using express, node, socket.io, and peerjs
 <pre>npm install -g peer</pre>
 <pre>peerjs --port 3001</pre>
 
-#### Open up a new terminal and start the server
+#### Open up a new terminal and start up the server
 <pre>npm run dev</pre>
 
 #### All Done!
