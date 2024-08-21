@@ -2,11 +2,7 @@ const socket = io('/');
 const videoGrid = document.querySelector('#video-grid');
 
 //for github
-const myPeer = new Peer(undefined, {
-    host: '/',
-    port: '3001'
-});
-
+const myPeer = new Peer();
 const myVideo = document.createElement('video');
 myVideo.setAttribute('id', 'myVideo');
 myVideo.muted = true;
