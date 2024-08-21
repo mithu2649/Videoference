@@ -1,7 +1,7 @@
 const socket = io('/');
 const videoGrid = document.querySelector('#video-grid');
 
-for github
+//for github
 const myPeer = new Peer(undefined, {
     host: '/',
     port: '3001'
